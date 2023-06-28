@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "site": "netflix-5fb7d",
     "public": "public",
     "ignore": [
       "firebase.json",
