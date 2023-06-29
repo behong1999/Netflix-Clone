@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FaPlay } from 'react-icons/fa';
-import requests from '../Request';
+import requests from '../utils/Request';
 
 const MainContent = () => {
   const [movies, setMovies] = useState([]);

@@ -1,6 +1,6 @@
 import React from 'react';
 import MainContent from '../components/MainContent';
-import requests from '../Request';
+import requests from '../utils/Request';
 import Row from '../components/Row';
 
 const Home = () => {

@@ -8,20 +8,26 @@ const Movie = ({ item }) => {
   const [like, setLike] = useState(false);
   const { user } = UserAuth();
 
-  const movieRef = doc(db, 'users', user?.email);
+  const movieRef = doc(db, 'users', `${user?.email}`);
 
   useEffect(() => {
     const checkFavorite = async () => {
       if (user?.email) {
         const docSnap = await getDoc(movieRef);
         const favorites = docSnap.data()?.favorites;
-        if (favorites && favorites.some((fav) => fav.id === item.id)) {
+        if (
+          favorites &&
+          favorites.length > 0 &&
+          favorites.some((fav) => fav.id === item.id)
+        ) {
           setLike(true);
+        } else {
+          setLike(false); // Set the initial state to false if the movie is not in favorites
         }
       }
     };
     checkFavorite();
-  }, [item.id, movieRef, user?.email]);
+  }, [user?.email]);
 
   const favoriteShow = async () => {
     if (user?.email) {
@@ -55,7 +61,7 @@ const Movie = ({ item }) => {
         alt={item?.title}
       />
       <div className='absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100'>
-        <p className='h-full text-xs md:text-sm font-bold flex justify-center items-center text-center'>
+        <p className='h-full text-xs md:text-sm font-bold flex justify-center items-center text-center  overflow-hidden whitespace-nowrap'>
           {item?.title}
         </p>
         <p onClick={favoriteShow}>
